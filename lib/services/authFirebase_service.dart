@@ -15,6 +15,15 @@ class AuthFirebaseService {
     return AuthUser.fromFirebase(user);
   }
 
+  AuthUser _convertUser(auth.User user) {
+    if (user == null) return null;
+    return AuthUser.fromFirebase(user);
+  }
+
+  Stream<AuthUser> get onAuthStateChange {
+    return _fAuth.authStateChanges().map(_convertUser);
+  }
+
   Future<AuthUser> signInAnonymously() async {
     try {
       var credentials = await _fAuth.signInAnonymously();

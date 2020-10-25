@@ -5,17 +5,12 @@ import 'package:flutter_time_tracker_app/src/widgets/customRaisedButtonSignIn.da
 import 'package:snack/snack.dart';
 
 class SignInScreen extends StatelessWidget {
-  final Function(AuthUser) onSignIn;
   AuthFirebaseService _auth = AuthFirebaseService();
-  SignInScreen({Key key, this.onSignIn}) : super(key: key);
   void _signInAnonymously(context) async {
     try {
       AuthUser user = await _auth.signInAnonymously();
       print("${user.uid}");
-      BarM.barSuccess.show(context);
-      onSignIn(user);
     } catch (e) {
-      // print(e.toString());
       BarM.barError.show(context);
     }
   }

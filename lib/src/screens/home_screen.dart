@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_time_tracker_app/services/authFirebase_service.dart';
 
 class HomeScreen extends StatelessWidget {
-  final VoidCallback onSignOut;
   AuthFirebaseService _authFirebaseService = AuthFirebaseService();
-  HomeScreen({Key key, @required this.onSignOut}) : super(key: key);
   void _signOut() async {
     try {
       await _authFirebaseService.signOut();
-      onSignOut();
     } catch (e) {
       // print(e.toString());
-
     }
   }
 
