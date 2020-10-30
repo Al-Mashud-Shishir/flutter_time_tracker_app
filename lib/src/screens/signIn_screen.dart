@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_time_tracker_app/services/authFirebase_service.dart';
 import 'package:flutter_time_tracker_app/src/widgets/barM.dart';
 import 'package:flutter_time_tracker_app/src/widgets/customRaisedButtonSignIn.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:snack/snack.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -13,6 +14,20 @@ class SignInScreen extends StatelessWidget {
     } catch (e) {
       BarM.barError.show(context);
     }
+  }
+
+  void _signInGoogle() async {
+    try {
+      AuthUser user = await _auth.signInGoogle();
+      print("${user.uid}");
+    } catch (e) {}
+  }
+
+  void _signInFacebook() async {
+    try {
+      AuthUser user = await _auth.signInFacebook();
+      print("${user.uid}");
+    } catch (e) {}
   }
 
   @override
@@ -28,8 +43,7 @@ class SignInScreen extends StatelessWidget {
 
   Widget _buildContainer() {
     return Padding(
-      // color: Colors.white38,
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -47,26 +61,39 @@ class SignInScreen extends StatelessWidget {
           ),
           CustomRaisedButtonSignIn(
             title: "Sign in With Google",
-            sideImage: Image.asset("assets/images/google-logo.png"),
+            sideIcon: FaIcon(
+              FontAwesomeIcons.google,
+              size: 30.0,
+              color: Color(0xFF34A853),
+            ),
             color: Colors.white,
             textColor: Colors.black,
-            onPressed: () => print("Google"),
+            onPressed: _signInGoogle,
           ),
           SizedBox(
             height: 15.0,
           ),
           CustomRaisedButtonSignIn(
             title: "Sign in With Facebook",
-            sideImage: Image.asset("assets/images/facebook-logo.png"),
+            sideIcon: FaIcon(
+              FontAwesomeIcons.facebook,
+              color: Colors.white,
+              size: 30.0,
+            ),
             color: Colors.blue[900],
-            onPressed: () => print("Facebook"),
+            onPressed: _signInFacebook,
           ),
           SizedBox(
             height: 15.0,
           ),
           CustomRaisedButtonSignIn(
-            title: "Sign in With Email",
-            color: Colors.teal[700],
+            title: "Sign in With Apple",
+            sideIcon: FaIcon(
+              FontAwesomeIcons.apple,
+              size: 30.0,
+              // color: Colors.white,
+            ),
+            color: Colors.grey[700],
             onPressed: () => print("Email"),
           ),
           SizedBox(
